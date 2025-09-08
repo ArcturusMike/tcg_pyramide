@@ -44,7 +44,7 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
 
 <div class="row">
   <!-- Linke Spalte -->
-  <div class="col-md-5">
+  <div class="col-lg-5">
     <h4>Neue Forderung eintragen</h4>
     <form method="post" action="save_result.php" class="mb-4 p-3 bg-white border rounded">
         <div class="mb-3">
@@ -62,17 +62,8 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
         <button type="submit" class="btn btn-primary w-100">Forderung eintragen</button>
     </form>
 
-    <h4>Neuen Spieler hinzufügen</h4>
-    <form method="post" action="save_result.php" class="p-3 bg-white border rounded mb-4">
-        <div class="mb-2">
-            <label class="form-label">Spielername</label>
-            <input class="form-control" type="text" name="new_player" placeholder="Neuer Spielername" required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Spieler hinzufügen</button>
-    </form>
-
     <h4>Spieler freistellen / aktivieren</h4>
-    <form method="post" action="save_result.php" class="p-3 bg-white border rounded">
+    <form method="post" action="save_result.php" class="mb-4 p-3 bg-white border rounded">
         <div class="mb-2">
             <label class="form-label">Spieler auswählen</label>
             <select class="form-select" name="toggle_player" required>
@@ -85,10 +76,19 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
         </div>
         <button type="submit" class="btn btn-warning w-100">Status wechseln</button>
     </form>
+
+    <h4>Neuen Spieler hinzufügen</h4>
+    <form method="post" action="save_result.php" class="p-3 bg-white border rounded mb-4">
+        <div class="mb-2">
+            <label class="form-label">Spielername</label>
+            <input class="form-control" type="text" name="new_player" placeholder="Neuer Spielername" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Spieler hinzufügen</button>
+    </form>
   </div>
 
   <!-- Rechte Spalte -->
-  <div class="col-md-7">
+  <div class="col-lg-7">
     <h4>Offene Forderungen</h4>
     <?php foreach ($matches as $entry): ?>
       <?php if ($entry['score'] === ""): ?>

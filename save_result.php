@@ -10,7 +10,7 @@ if (file_exists($file)) {
 $players = $data['players'] ?? [];
 $matches = $data['matches'] ?? [];
 
-// Neuen Spieler hinzufügen
+// 1. Neuen Spieler hinzufügen
 if (!empty($_POST['new_player'])) {
     $newPlayer = trim($_POST['new_player']);
     if ($newPlayer !== '') {
@@ -23,25 +23,30 @@ if (!empty($_POST['new_player'])) {
         }
     }
 }
-// Spieler freistellen / aktivieren
+
+// 2. Spieler freistellen / aktivieren
 elseif (!empty($_POST['toggle_player'])) {
+    $toggleName = $_POST['toggle_player'];
     foreach ($players as &$p) {
-        if ($p['name'] === $_POST['toggle_player']) {
+        if ($p['name'] === $toggleName) {
+            // Status umschalten
             $p['freigestellt'] = !$p['freigestellt'];
             break;
         }
     }
-    unset($p);
+    unset($p); // Referenz aufheben
 }
-// Neue Forderung ohne Ergebnis
+
+// 3. Neue Forderung ohne Ergebnis eintragen
 elseif (!empty($_POST['challenger']) && !empty($_POST['opponent']) && empty($_POST['score'])) {
     $challenger = $_POST['challenger'];
     $opponent   = $_POST['opponent'];
 
-    // Schutz: freigestellte Spieler dürfen nicht fordern/gefodert werden
+    // Spieler existieren und sind nicht freigestellt
     $byName = fn($name) => array_values(array_filter($players, fn($pl) => $pl['name'] === $name))[0] ?? null;
     $chP = $byName($challenger);
     $opP = $byName($opponent);
+
     if ($chP && $opP && !$chP['freigestellt'] && !$opP['freigestellt']) {
         $matches[] = [
             "challenger" => $challenger,
@@ -51,7 +56,8 @@ elseif (!empty($_POST['challenger']) && !empty($_POST['opponent']) && empty($_PO
         ];
     }
 }
-// Ergebnis für offene Forderung
+
+// 4. Ergebnis für offene Forderung eintragen
 elseif (!empty($_POST['winner']) && !empty($_POST['score']) && !empty($_POST['challenger']) && !empty($_POST['opponent'])) {
     $challenger = $_POST['challenger'];
     $opponent   = $_POST['opponent'];
@@ -79,13 +85,15 @@ elseif (!empty($_POST['winner']) && !empty($_POST['score']) && !empty($_POST['ch
     foreach ($matches as &$match) {
         if ($match['challenger'] === $challenger && $match['opponent'] === $opponent && ($match['score'] ?? "") === "") {
             $match['score'] = $scoreCorrect;
+            $match['winner'] = $winner;             // <-- Gewinner direkt speichern
             $match['timestamp'] = date("Y-m-d H:i:s");
             break;
         }
     }
     unset($match);
 
-    // Pyramide aktualisieren: Gewinner rückt auf Platz des Verlierers, alle dazwischen rücken einen nach hinten
+
+    // Pyramide aktualisieren: Gewinner rückt auf Platz des Verlierers
     $posWinner = array_search($winner, array_column($players, 'name'));
     $loser = ($winner === $challenger) ? $opponent : $challenger;
     $posLoser = array_search($loser, array_column($players, 'name'));

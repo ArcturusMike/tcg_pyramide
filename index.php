@@ -63,9 +63,9 @@ usort($matches, function($a, $b) {
         width: 100%;
     }
     .pyramid {
-        display: table;       /* sorgt dafür, dass margin auto wirkt */
-        margin: 0 auto;       /* zentriert, solange sie in den Bildschirm passt */
-        white-space: nowrap;  /* keine Umbrüche */
+        display: table;
+        margin: 0 auto;
+        white-space: nowrap;
     }
     .pyramid .row { 
         justify-content: center; 
@@ -79,7 +79,7 @@ usort($matches, function($a, $b) {
       margin: 0 8px;
       border-radius: 6px;
       min-width: 200px;
-      min-height: 56px; /* Fixhöhe */
+      min-height: 56px;
       text-align: center;
       font-weight: bold;
       color: #0d1b2a;
@@ -122,7 +122,6 @@ usort($matches, function($a, $b) {
 <?php endif; ?>
 </div>
 
-<!-- Vollbreiter Container nur für die Pyramide -->
 <div class="pyramid-container">
     <div class="pyramid mb-5">
     <?php
@@ -135,11 +134,10 @@ usort($matches, function($a, $b) {
             $slot_player = $slot['name'] ?? "–";
             $isFree = $slot['freigestellt'] ?? false;
             
-            // Hintergrundfarbe
             if ($isFree) {
-                $bgColor = "#e0e0e0"; // blassgrau für freigestellte Spieler
+                $bgColor = "#e0e0e0";
             } else {
-                $bgColor = $playerColors[$slot_player] ?? "#e7f1ff"; // Standard
+                $bgColor = $playerColors[$slot_player] ?? "#e7f1ff";
             }
 
             echo "<div class='slot' style='background-color: $bgColor'>
@@ -165,7 +163,11 @@ usort($matches, function($a, $b) {
 <ul class="list-group">
 <?php
 foreach ($openMatches as $entry) {
-    echo "<li class='list-group-item'>" . htmlspecialchars($entry['challenger']) . " fordert " . htmlspecialchars($entry['opponent']) . "</li>";
+    echo "<li class='list-group-item'>"
+        . "<span class='badge bg-warning text-dark me-2'>" . htmlspecialchars($entry['challenger']) . "</span>"
+        . " fordert "
+        . "<span class='badge bg-warning text-dark ms-2'>" . htmlspecialchars($entry['opponent']) . "</span>"
+        . "</li>";
 }
 ?>
 </ul>
@@ -173,25 +175,34 @@ foreach ($openMatches as $entry) {
 
 <div>
 <h3>Letzte Ergebnisse</h3>
-<ul class="list-group">
-<?php
-foreach ($matches as $entry) {
-    if (!empty($entry['score'])) {
-        echo "<li class='list-group-item'>" 
-            . htmlspecialchars($entry['challenger']) 
-            . " vs. " 
-            . htmlspecialchars($entry['opponent']) 
-            . " → " 
-            . htmlspecialchars($entry['score']) 
-            . "</li>";
-    }
-}
-?>
-</ul>
-</div>
+<div class="table-responsive">
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Forderer</th>
+            <th>Geforderter</th>
+            <th>Ergebnis</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
+    foreach ($matches as $entry) {
+        if (!empty($entry['score'])) {
+            $winner = $entry['winner'] ?? null;
+            $challengerClass = ($winner === $entry['challenger']) ? "bg-success" : "bg-danger";
+            $opponentClass   = ($winner === $entry['opponent'])   ? "bg-success" : "bg-danger";
 
-<div class="text-center mt-4">
-<a class="btn btn-primary" href="admin.php">Zum Admin-Formular</a>
+            echo "<tr>"
+                . "<td><span class='badge $challengerClass'>" . htmlspecialchars($entry['challenger']) . "</span></td>"
+                . "<td><span class='badge $opponentClass'>" . htmlspecialchars($entry['opponent']) . "</span></td>"
+                . "<td>" . htmlspecialchars($entry['score']) . "</td>"
+                . "</tr>";
+        }
+    }
+    ?>
+    </tbody>
+</table>
+</div>
 </div>
 </div>
 </body>
