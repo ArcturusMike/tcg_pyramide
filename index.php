@@ -44,6 +44,11 @@ foreach ($matches as $m) {
         $lastUpdate = max($lastUpdate ?? $m['timestamp'], $m['timestamp']);
     }
 }
+
+// Ergebnisse nach Timestamp sortieren (neueste zuerst)
+usort($matches, function($a, $b) {
+    return strtotime($b['timestamp'] ?? 0) <=> strtotime($a['timestamp'] ?? 0);
+});
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -52,11 +57,20 @@ foreach ($matches as $m) {
 <title>Forderungspyramide</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-     .pyramid-container {
+    .pyramid-container {
         overflow-x: auto;
         padding-bottom: 10px;
+        width: 100%;
     }
-    .pyramid .row { justify-content: center; margin: 5px 0; }
+    .pyramid {
+        display: table;       /* sorgt dafür, dass margin auto wirkt */
+        margin: 0 auto;       /* zentriert, solange sie in den Bildschirm passt */
+        white-space: nowrap;  /* keine Umbrüche */
+    }
+    .pyramid .row { 
+        justify-content: center; 
+        margin: 5px 0; 
+    }
     .slot {
       position: relative;
       background: #e7f1ff;
@@ -100,83 +114,85 @@ foreach ($matches as $m) {
 </style>
 </head>
 <body class="bg-light">
+<div class="container py-4">
+<h1 class="text-center mb-2">Forderungspyramide</h1>
 
-<!-- Vollbreiter Pyramidencontainer -->
-<div class="container-fluid py-4 bg-light">
-    <h1 class="text-center mb-2">Forderungspyramide</h1>
+<?php if ($lastUpdate): ?>
+    <p class="text-center text-muted">Stand: <?= date("d.m.Y H:i", strtotime($lastUpdate)) ?></p>
+<?php endif; ?>
+</div>
 
-    <?php if ($lastUpdate): ?>
-        <p class="text-center text-muted">Stand: <?= date("d.m.Y H:i", strtotime($lastUpdate)) ?></p>
-    <?php endif; ?>
+<!-- Vollbreiter Container nur für die Pyramide -->
+<div class="pyramid-container">
+    <div class="pyramid mb-5">
+    <?php
+    $player_index = 0;
+    $slot_number = 1;
+    foreach ($rows as $row_slots) {
+        echo "<div class='d-flex justify-content-center mb-2'>";
+        for ($i = 0; $i < $row_slots; $i++) {
+            $slot = $players[$player_index] ?? null;
+            $slot_player = $slot['name'] ?? "–";
+            $isFree = $slot['freigestellt'] ?? false;
+            
+            // Hintergrundfarbe
+            if ($isFree) {
+                $bgColor = "#e0e0e0"; // blassgrau für freigestellte Spieler
+            } else {
+                $bgColor = $playerColors[$slot_player] ?? "#e7f1ff"; // Standard
+            }
 
-    <div class="pyramid-container">
-        <div class="pyramid mb-5">
-        <?php
-        $player_index = 0;
-        $slot_number = 1;
-        foreach ($rows as $row_slots) {
-            echo "<div class='d-flex justify-content-center mb-2'>";
-            for ($i = 0; $i < $row_slots; $i++) {
-                $slot = $players[$player_index] ?? null;
-                $slot_player = $slot['name'] ?? "–";
-                $isFree = $slot['freigestellt'] ?? false;
-                
-                // Hintergrundfarbe
-                if ($isFree) {
-                    $bgColor = "#e0e0e0"; // blassgrau für freigestellte Spieler
-                } else {
-                    $bgColor = $playerColors[$slot_player] ?? "#e7f1ff"; // Standard
-                }
-
-                echo "<div class='slot' style='background-color: $bgColor'>
-                        <span class='slot-number'>$slot_number</span>"
-                        . htmlspecialchars($slot_player);
-                if ($isFree) {
-                    echo "<div class='status-muted'>freigestellt</div>";
-                }
-                echo "</div>";
-
-                $player_index++;
-                $slot_number++;
+            echo "<div class='slot' style='background-color: $bgColor'>
+                    <span class='slot-number'>$slot_number</span>"
+                    . htmlspecialchars($slot_player);
+            if ($isFree) {
+                echo "<div class='status-muted'>freigestellt</div>";
             }
             echo "</div>";
+
+            $player_index++;
+            $slot_number++;
         }
-        ?>
-        </div>
+        echo "</div>";
+    }
+    ?>
     </div>
 </div>
 
-<!-- Normale Container für offene Forderungen und Ergebnisse -->
-<div class="container py-4">
-    <div class="mb-4">
-        <h3>Offene Forderungen</h3>
-        <ul class="list-group">
-        <?php
-        foreach ($openMatches as $entry) {
-            echo "<li class='list-group-item'>" . htmlspecialchars($entry['challenger']) . " fordert " . htmlspecialchars($entry['opponent']) . "</li>";
-        }
-        ?>
-        </ul>
-    </div>
-
-    <div>
-        <h3>Letzte Ergebnisse</h3>
-        <ul class="list-group">
-        <?php
-        $results = array_filter($matches, fn($m) => !empty($m['score']));
-        usort($results, fn($a,$b) => strtotime($a['timestamp']) <=> strtotime($b['timestamp']));
-        $results = array_reverse($results);
-        foreach ($results as $entry) {
-            echo "<li class='list-group-item'>" . htmlspecialchars($entry['challenger']) . " vs. " . htmlspecialchars($entry['opponent']) . " → " . htmlspecialchars($entry['score']) . "</li>";
-        }
-        ?>
-        </ul>
-    </div>
-
-    <div class="text-center mt-4">
-        <a class="btn btn-primary" href="admin.php">Zum Admin-Formular</a>
-    </div>
+<div class="container">
+<div class="mb-4">
+<h3>Offene Forderungen</h3>
+<ul class="list-group">
+<?php
+foreach ($openMatches as $entry) {
+    echo "<li class='list-group-item'>" . htmlspecialchars($entry['challenger']) . " fordert " . htmlspecialchars($entry['opponent']) . "</li>";
+}
+?>
+</ul>
 </div>
 
+<div>
+<h3>Letzte Ergebnisse</h3>
+<ul class="list-group">
+<?php
+foreach ($matches as $entry) {
+    if (!empty($entry['score'])) {
+        echo "<li class='list-group-item'>" 
+            . htmlspecialchars($entry['challenger']) 
+            . " vs. " 
+            . htmlspecialchars($entry['opponent']) 
+            . " → " 
+            . htmlspecialchars($entry['score']) 
+            . "</li>";
+    }
+}
+?>
+</ul>
+</div>
+
+<div class="text-center mt-4">
+<a class="btn btn-primary" href="admin.php">Zum Admin-Formular</a>
+</div>
+</div>
 </body>
 </html>
