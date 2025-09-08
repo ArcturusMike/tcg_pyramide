@@ -6,6 +6,6 @@ Forderungspyramidensystem des TC Gösselsdorf
 - [x] Pyramidenscroll horizontal
 - [x] Forderungen Darstellung verbessern
 - [x] Revert-Feature einbauen, falls mal Fehler gemacht wird
-- [ ] Webspace hochladen
-- [ ] Marko fragen Wordpress iFrame
-- [ ] Webspace Startseite Verknüpfung
+- [x] Webspace hochladen
+- [x] Marko fragen Wordpress iFrame
+- [x] Webspace Startseite Verknüpfung
