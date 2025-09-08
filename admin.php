@@ -85,6 +85,12 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
         </div>
         <button type="submit" class="btn btn-primary w-100">Spieler hinzufügen</button>
     </form>
+
+    <h4>Letzten Schritt zurücksetzen</h4>
+    <form method="post" action="save_result.php" class="mb-4 p-3 bg-white border rounded">
+        <button type="submit" name="revert" value="1" class="btn btn-danger w-100">Letzten Schritt zurücksetzen</button>
+    </form>
+
   </div>
 
   <!-- Rechte Spalte -->
