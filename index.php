@@ -68,6 +68,14 @@ usort($matches, function($a, $b) {
         margin: 0 auto;
         white-space: nowrap;
     }
+    /* Auf kleineren Bildschirmen Pyramide verkleinern */
+    @media (max-width: 760px) {
+        .pyramid {
+            transform: scale(0.8);
+            margin-left: -130px;
+            margin-top: -40px;
+        }
+    }
     .pyramid .row { 
         justify-content: center; 
         margin: 5px 0; 
