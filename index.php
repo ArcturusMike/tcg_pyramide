@@ -120,6 +120,10 @@ usort($matches, function($a, $b) {
       opacity: 0.8;
       font-weight: normal;
     }
+    .list-group-item {
+  white-space: nowrap;       /* kein Zeilenumbruch */
+  overflow-x: auto;          /* horizontal scrollen erlauben */
+}
 </style>
 </head>
 <body class="bg-light">
