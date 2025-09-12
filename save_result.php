@@ -130,6 +130,11 @@ $data['players'] = $players;
 $data['matches'] = $matches;
 file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
+// === Stand aktualisieren ===
+file_put_contents('stand.json', json_encode([
+    "lastUpdate" => date("Y-m-d H:i:s")
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
 header("Location: admin.php");
 exit;
 ?>

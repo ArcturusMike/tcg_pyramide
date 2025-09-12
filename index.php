@@ -37,12 +37,11 @@ while ($total_slots < $player_count) {
     $row_number++;
 }
 
-// Letztes Änderungsdatum
+// Letztes Änderungsdatum aus stand.json
 $lastUpdate = null;
-foreach ($matches as $m) {
-    if (!empty($m['timestamp'])) {
-        $lastUpdate = max($lastUpdate ?? $m['timestamp'], $m['timestamp']);
-    }
+if (file_exists('stand.json')) {
+    $standData = json_decode(file_get_contents('stand.json'), true);
+    $lastUpdate = $standData['lastUpdate'] ?? null;
 }
 
 // Ergebnisse nach Timestamp sortieren (neueste zuerst)
