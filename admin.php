@@ -97,11 +97,14 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
   <!-- Rechte Spalte -->
   <div class="col-lg-7">
     <h4>Offene Forderungen</h4>
-    <?php foreach ($matches as $entry): ?>
-      <?php if ($entry['score'] === ""): ?>
-        <form method="post" action="save_result.php" class="open-match-card">
-            <div class="mb-1"><strong><?= htmlspecialchars($entry['challenger']) ?> fordert <?= htmlspecialchars($entry['opponent']) ?></strong></div>
-            <div class="row g-2">
+<?php foreach ($matches as $index => $entry): ?>
+  <?php if ($entry['score'] === ""): ?>
+    <div class="open-match-card">
+        <div class="mb-1">
+            <strong><?= htmlspecialchars($entry['challenger']) ?> fordert <?= htmlspecialchars($entry['opponent']) ?></strong>
+        </div>
+        <form method="post" action="save_result.php">
+            <div class="row g-2 align-items-end">
                 <div class="col-5">
                     <label class="form-label small">Sieger</label>
                     <select class="form-select form-select-sm" name="winner" required>
@@ -109,20 +112,26 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
                         <option value="<?= htmlspecialchars($entry['opponent']) ?>"><?= htmlspecialchars($entry['opponent']) ?></option>
                     </select>
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     <label class="form-label small">Ergebnis</label>
                     <input class="form-control form-control-sm" type="text" name="score" placeholder="z.B. 6:3 7:6" required>
                 </div>
-                <div class="col-2 d-flex align-items-end">
+                <div class="col-2">
                     <input type="hidden" name="challenger" value="<?= htmlspecialchars($entry['challenger']) ?>">
                     <input type="hidden" name="opponent" value="<?= htmlspecialchars($entry['opponent']) ?>">
                     <button type="submit" class="btn btn-success w-100 btn-sm">OK</button>
                 </div>
+                <div class="col-1">
+                    <button type="submit" name="delete_match" value="<?= $index ?>" class="btn btn-danger w-100 btn-sm">X</button>
+                </div>
             </div>
         </form>
-      <?php endif; ?>
-    <?php endforeach; ?>
-  </div>
+    </div>
+  <?php endif; ?>
+<?php endforeach; ?>
+
+
+</div>
 </div>
 
 <div class="text-center mt-4">

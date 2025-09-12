@@ -187,7 +187,7 @@ foreach ($openMatches as $entry) {
 </div>
 
 <div>
-<h3>Letzte Ergebnisse</h3>
+<h3>Ergebnisse</h3>
 <div class="table-responsive">
 <table class="table table-striped table-bordered align-middle">
     <thead class="table-light">

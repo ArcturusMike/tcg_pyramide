@@ -24,8 +24,17 @@ if (file_exists($file)) {
     copy($file, 'data_backup.json');
 }
 
-// === 1. Neuen Spieler hinzufügen ===
-if (!empty($_POST['new_player'])) {
+// === 1. Forderung löschen ===
+if (isset($_POST['delete_match'])) {
+    $index = (int)$_POST['delete_match'];
+    if (isset($matches[$index])) {
+        unset($matches[$index]);
+        $matches = array_values($matches); // Indizes neu sortieren
+    }
+}
+
+// === 2. Neuen Spieler hinzufügen ===
+elseif (!empty($_POST['new_player'])) {
     $newPlayer = trim($_POST['new_player']);
     if ($newPlayer !== '') {
         $exists = false;
@@ -38,7 +47,7 @@ if (!empty($_POST['new_player'])) {
     }
 }
 
-// === 2. Spieler freistellen / aktivieren ===
+// === 3. Spieler freistellen / aktivieren ===
 elseif (!empty($_POST['toggle_player'])) {
     $toggleName = $_POST['toggle_player'];
     foreach ($players as &$p) {
@@ -50,7 +59,7 @@ elseif (!empty($_POST['toggle_player'])) {
     unset($p);
 }
 
-// === 3. Neue Forderung ohne Ergebnis eintragen ===
+// === 4. Neue Forderung ohne Ergebnis eintragen ===
 elseif (!empty($_POST['challenger']) && !empty($_POST['opponent']) && empty($_POST['score'])) {
     $challenger = $_POST['challenger'];
     $opponent   = $_POST['opponent'];
@@ -69,7 +78,7 @@ elseif (!empty($_POST['challenger']) && !empty($_POST['opponent']) && empty($_PO
     }
 }
 
-// === 4. Ergebnis für offene Forderung eintragen ===
+// === 5. Ergebnis für offene Forderung eintragen ===
 elseif (!empty($_POST['winner']) && !empty($_POST['score']) && !empty($_POST['challenger']) && !empty($_POST['opponent'])) {
     $challenger = $_POST['challenger'];
     $opponent   = $_POST['opponent'];
