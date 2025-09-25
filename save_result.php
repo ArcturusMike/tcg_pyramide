@@ -42,17 +42,18 @@ elseif (!empty($_POST['new_player'])) {
             if ($p['name'] === $newPlayer) { $exists = true; break; }
         }
         if (!$exists) {
-            $players[] = ["name" => $newPlayer, "freigestellt" => false];
+            $players[] = ["name" => $newPlayer, "status" => "aktiv"];
         }
     }
 }
 
 // === 3. Spieler freistellen / aktivieren ===
-elseif (!empty($_POST['toggle_player'])) {
-    $toggleName = $_POST['toggle_player'];
+elseif (!empty($_POST['player_name']) && !empty($_POST['new_status'])) {
+    $toggleName = $_POST['player_name'];
+    $newStatus = $_POST['new_status'];
     foreach ($players as &$p) {
         if ($p['name'] === $toggleName) {
-            $p['freigestellt'] = !$p['freigestellt'];
+            $p['status'] = $newStatus;
             break;
         }
     }

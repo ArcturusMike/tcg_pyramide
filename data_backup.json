@@ -2,111 +2,111 @@
     "players": [
         {
             "name": "Riepl Maximilian",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Wernig Fynn",
-            "freigestellt": false
-        },
-        {
-            "name": "Werkl Markus",
-            "freigestellt": false
-        },
-        {
-            "name": "Wernig Rene",
-            "freigestellt": false
-        },
-        {
-            "name": "Till Georg",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Wedenig Erich",
-            "freigestellt": false
-        },
-        {
-            "name": "Kuchling Joe",
-            "freigestellt": true
-        },
-        {
-            "name": "Riepl Jan",
-            "freigestellt": false
-        },
-        {
-            "name": "Stefan Christopher",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Jenic Tobias",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
-            "name": "Krische Benedikt",
-            "freigestellt": false
+            "name": "Wernig Rene",
+            "status": "aktiv"
         },
         {
-            "name": "Puschl Harald",
-            "freigestellt": true
+            "name": "Werkl Markus",
+            "status": "aktiv"
         },
         {
-            "name": "Schwarze Marc",
-            "freigestellt": true
+            "name": "Riepl Jan",
+            "status": "aktiv"
         },
         {
-            "name": "Trinkl Gerd",
-            "freigestellt": false
+            "name": "Till Georg",
+            "status": "aktiv"
         },
         {
-            "name": "Hobel Michael",
-            "freigestellt": false
+            "name": "Kuchling Joe",
+            "status": "aktiv"
+        },
+        {
+            "name": "Stefan Christopher",
+            "status": "aktiv"
         },
         {
             "name": "Koraschnigg Jürgen",
-            "freigestellt": false
+            "status": "aktiv"
+        },
+        {
+            "name": "Krische Benedikt",
+            "status": "aktiv"
+        },
+        {
+            "name": "Puschl Harald",
+            "status": "überspringen"
+        },
+        {
+            "name": "Schwarze Marc",
+            "status": "aktiv"
+        },
+        {
+            "name": "Trinkl Gerd",
+            "status": "aktiv"
+        },
+        {
+            "name": "Hobel Michael",
+            "status": "aktiv"
         },
         {
             "name": "Kuchling Thomas",
-            "freigestellt": false
+            "status": "freigestellt"
         },
         {
             "name": "Wernig Marc",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Wouk Christoph",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Lechner Bernd",
-            "freigestellt": false
+            "status": "freigestellt"
         },
         {
             "name": "Pruntsch Harald",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Kulterer Hannes",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Kuster Andreas",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Opetnik Niko",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Karel Julian",
-            "freigestellt": false
+            "status": "aktiv"
         },
         {
             "name": "Schleschitz Aron",
-            "freigestellt": true
+            "status": "überspringen"
         },
         {
             "name": "Schleschitz Erik",
-            "freigestellt": false
+            "status": "aktiv"
         }
     ],
     "matches": [
@@ -155,33 +155,76 @@
         {
             "challenger": "Opetnik Niko",
             "opponent": "Karel Julian",
-            "score": "7:5 6:7 11:9",
-            "timestamp": "2025-09-12 13:02:47",
+            "score": "7:6 5:7 11:9",
+            "timestamp": "2025-09-11 19:55:55",
             "winner": "Opetnik Niko"
         },
         {
             "challenger": "Wedenig Erich",
             "opponent": "Werkl Markus",
-            "score": "",
-            "timestamp": "2025-09-08 11:31:52"
-        },
-        {
-            "challenger": "Wernig Rene",
-            "opponent": "Wernig Fynn",
-            "score": "",
-            "timestamp": "2025-09-08 11:32:13"
+            "score": "6:1 6:3",
+            "timestamp": "2025-09-08 18:04:37",
+            "winner": "Wedenig Erich"
         },
         {
             "challenger": "Riepl Jan",
             "opponent": "Till Georg",
-            "score": "",
-            "timestamp": "2025-09-08 11:32:23"
+            "score": "6:4 6:2",
+            "timestamp": "2025-09-09 19:57:07",
+            "winner": "Riepl Jan"
         },
         {
-            "challenger": "Hobel Michael",
-            "opponent": "Jenic Tobias",
+            "challenger": "Koraschnigg Jürgen",
+            "opponent": "Krische Benedikt",
+            "score": "6:1 6:1",
+            "timestamp": "2025-09-14 09:22:52",
+            "winner": "Koraschnigg Jürgen"
+        },
+        {
+            "challenger": "Jenic Tobias",
+            "opponent": "Till Georg",
+            "score": "6:1 6:2",
+            "timestamp": "2025-09-15 19:07:59",
+            "winner": "Jenic Tobias"
+        },
+        {
+            "challenger": "Kuster Andreas",
+            "opponent": "Pruntsch Harald",
+            "score": "1:6 0:6",
+            "timestamp": "2025-09-15 21:14:15",
+            "winner": "Pruntsch Harald"
+        },
+        {
+            "challenger": "Jenic Tobias",
+            "opponent": "Werkl Markus",
+            "score": "7:6 6:3",
+            "timestamp": "2025-09-17 19:36:19",
+            "winner": "Jenic Tobias"
+        },
+        {
+            "challenger": "Jenic Tobias",
+            "opponent": "Riepl Maximilian",
             "score": "",
-            "timestamp": "2025-09-12 13:19:03"
+            "timestamp": "2025-09-17 19:36:22"
+        },
+        {
+            "challenger": "Wernig Rene",
+            "opponent": "Werkl Markus",
+            "score": "6:2 6:3",
+            "timestamp": "2025-09-21 12:30:03",
+            "winner": "Wernig Rene"
+        },
+        {
+            "challenger": "Stefan Christopher",
+            "opponent": "Till Georg",
+            "score": "",
+            "timestamp": "2025-09-19 20:53:35"
+        },
+        {
+            "challenger": "Schwarze Marc",
+            "opponent": "Koraschnigg Jürgen",
+            "score": "",
+            "timestamp": "2025-09-20 13:27:54"
         }
     ]
 }

@@ -90,7 +90,6 @@ usort($matches, function($a, $b) {
       min-height: 56px;
       text-align: center;
       font-weight: bold;
-      color: #0d1b2a;
       box-shadow:
         0 4px 6px rgba(0, 0, 0, 0.25),
         4px 6px 10px rgba(0, 0, 0, 0.2),
@@ -144,19 +143,28 @@ usort($matches, function($a, $b) {
         for ($i = 0; $i < $row_slots; $i++) {
             $slot = $players[$player_index] ?? null;
             $slot_player = $slot['name'] ?? "–";
-            $isFree = $slot['freigestellt'] ?? false;
-            
-            if ($isFree) {
+            $status = $slot['status'] ?? "aktiv"; // neu: status-Feld
+
+            if ($status === "freigestellt") {
                 $bgColor = "#e0e0e0";
+                $textColor = "inherit";
+            } elseif ($status === "überspringen") {
+                $bgColor = "#e0e0e0";
+                $textColor = "grey";
             } else {
                 $bgColor = $playerColors[$slot_player] ?? "#e7f1ff";
+                $textColor = "#0d1b2a";
             }
 
-            echo "<div class='slot' style='background-color: $bgColor'>
+
+            echo "<div class='slot' style='background-color: $bgColor; color:  $textColor'>
                     <span class='slot-number'>$slot_number</span>"
                     . htmlspecialchars($slot_player);
-            if ($isFree) {
+
+            if ($status === "freigestellt") {
                 echo "<div class='status-muted'>freigestellt</div>";
+            } elseif ($status === "überspringen") {
+                echo "<div class='status-muted'>überspringen</div>";
             }
             echo "</div>";
 
@@ -216,6 +224,19 @@ foreach ($openMatches as $entry) {
 </table>
 </div>
 </div>
+
+<div>
+<h3>Regelauszug</h3>
+<ul class="list-group">
+    <li class="list-group-item">Gefordert werden darf jeder, der in der Pyramide <b>3 Plätze vor einem</b> oder <b>eine Reihe darüber rechts oben vor einem</b> steht.<br>Freigestellte Spieler werden dabei mitgezählt, "überspringbare" Spieler nicht. Ein Spieler ist nur "überspringbar", wenn er für eine längere Zeit ausfällt.</li>
+    <li class="list-group-item">Die Zeit zwischen Forderung und Spiel darf <b>nicht mehr als 7 Tage</b> betragen.<br>Die Spiele <b>müssen auf Platz 4</b> gespielt und reserviert werden, damit die Zuschauer informiert sind. <b>Spiele auf anderen Plätzen werden nicht gewertet!</b></li>
+    <li class="list-group-item">Gespielt wird auf <b>2 Gewinnsätze</b>. Dritter Satz ausschließlich <b>Champions-Tie-Break</b>.</li>
+    <li class="list-group-item">Der <b>Gewinner</b> darf sofort selber weiterfordern, aber erst nach 3 Tagen wieder gefordert werden.</li>
+    <li class="list-group-item">Der <b>Verlierer</b> darf erst nach Ablauf von 7 Tagen wieder fordern, aber darf sofort gefordert werden.</li>
+    <li class="list-group-item">Gewinnt der Herausforderer, so rückt er <b>auf den Platz des Verlierers</b>. Der Geforderte <b>fällt um einen Platz zurück</b>, alle dazwischen liegenden Spieler <b>ebenfalls</b>.</li>
+</ul>
+</div>
+
 </div>
 </body>
 </html>

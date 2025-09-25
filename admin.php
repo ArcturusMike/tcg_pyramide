@@ -19,7 +19,7 @@ foreach ($matches as $m) {
 // Nur Spieler, die frei sind (nicht aktiv in Forderungen + nicht freigestellt)
 $availablePlayers = [];
 foreach ($players as $p) {
-    if (!$p['freigestellt'] && !in_array($p['name'], $activePlayers)) {
+    if (($p['status'] ?? 'aktiv') === 'aktiv' && !in_array($p['name'], $activePlayers)) {
         $availablePlayers[] = $p['name'];
     }
 }
@@ -63,19 +63,28 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
         <button type="submit" class="btn btn-primary w-100">Forderung eintragen</button>
     </form>
 
-    <h4>Spieler freistellen / aktivieren</h4>
+    <h4>Spielerstatus ändern</h4>
     <form method="post" action="save_result.php" class="mb-4 p-3 bg-white border rounded">
         <div class="mb-2">
             <label class="form-label">Spieler auswählen</label>
-            <select class="form-select" name="toggle_player" required>
+            <select class="form-select" name="player_name" required>
                 <?php foreach ($players as $p): ?>
                     <option value="<?= htmlspecialchars($p['name']) ?>">
-                        <?= htmlspecialchars($p['name']) ?> <?= $p['freigestellt'] ? '(freigestellt)' : '' ?>
+                        <?= htmlspecialchars($p['name']) ?> 
+                        (<?= $p['status'] ?? 'aktiv' ?>)
                     </option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <button type="submit" class="btn btn-warning w-100">Status wechseln</button>
+        <div class="mb-2">
+            <label class="form-label">Neuer Status</label>
+            <select class="form-select" name="new_status" required>
+                <option value="aktiv">aktiv</option>
+                <option value="freigestellt">freigestellt</option>
+                <option value="überspringen">überspringen</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-warning w-100">Status ändern</button>
     </form>
 
     <h4>Neuen Spieler hinzufügen</h4>
