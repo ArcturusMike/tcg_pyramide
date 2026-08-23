@@ -1,15 +1,47 @@
 {
     "players": [
         {
+            "name": "Koraschnigg Jürgen",
+            "status": "aktiv"
+        },
+        {
+            "name": "Werkl Markus",
+            "status": "aktiv"
+        },
+        {
+            "name": "Puschl Harald",
+            "status": "aktiv"
+        },
+        {
+            "name": "Wernig Marc",
+            "status": "aktiv"
+        },
+        {
+            "name": "Till Georg",
+            "status": "aktiv"
+        },
+        {
+            "name": "Schwarze Marc",
+            "status": "freigestellt"
+        },
+        {
+            "name": "Jagoutz Michael",
+            "status": "aktiv"
+        },
+        {
+            "name": "Mayer Marko",
+            "status": "freigestellt"
+        },
+        {
+            "name": "Opetnik Niko",
+            "status": "freigestellt"
+        },
+        {
             "name": "Riepl Maximilian",
             "status": "aktiv"
         },
         {
-            "name": "Kuster Andreas",
-            "status": "aktiv"
-        },
-        {
-            "name": "Wernig Fynn",
+            "name": "Kuchling Thomas",
             "status": "aktiv"
         },
         {
@@ -21,15 +53,11 @@
             "status": "aktiv"
         },
         {
-            "name": "Jenic Tobias",
+            "name": "Schleschitz Aron",
             "status": "aktiv"
         },
         {
-            "name": "Wernig Rene",
-            "status": "aktiv"
-        },
-        {
-            "name": "Werkl Markus",
+            "name": "Rigelnik Alexander",
             "status": "aktiv"
         },
         {
@@ -37,47 +65,15 @@
             "status": "aktiv"
         },
         {
-            "name": "Till Georg",
-            "status": "aktiv"
-        },
-        {
             "name": "Kuchling Joe",
             "status": "aktiv"
         },
         {
-            "name": "Stefan Christopher",
+            "name": "Jenic Tobias",
             "status": "aktiv"
         },
         {
-            "name": "Karel Julian",
-            "status": "aktiv"
-        },
-        {
-            "name": "Koraschnigg Jürgen",
-            "status": "aktiv"
-        },
-        {
-            "name": "Krische Benedikt",
-            "status": "aktiv"
-        },
-        {
-            "name": "Puschl Harald",
-            "status": "aktiv"
-        },
-        {
-            "name": "Schwarze Marc",
-            "status": "aktiv"
-        },
-        {
-            "name": "Trinkl Gerd",
-            "status": "aktiv"
-        },
-        {
-            "name": "Kuchling Thomas",
-            "status": "aktiv"
-        },
-        {
-            "name": "Wernig Marc",
+            "name": "Hacker Anna",
             "status": "aktiv"
         },
         {
@@ -85,30 +81,11 @@
             "status": "aktiv"
         },
         {
-            "name": "Lechner Bernd",
-            "status": "aktiv"
-        },
-        {
-            "name": "Pruntsch Harald",
-            "status": "aktiv"
-        },
-        {
-            "name": "Kulterer Hannes",
-            "status": "aktiv"
-        },
-        {
-            "name": "Opetnik Niko",
-            "status": "aktiv"
-        },
-        {
-            "name": "Schleschitz Aron",
-            "status": "aktiv"
-        },
-        {
-            "name": "Schleschitz Erik",
+            "name": "Newart Timo",
             "status": "aktiv"
         }
     ],
     "matches": [
+
     ]
 }

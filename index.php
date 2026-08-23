@@ -144,31 +144,65 @@ foreach ($openMatches as $entry) {
     </thead>
     <tbody>
     <?php
-    $resultIndex = 0;
+$resultIndex = 0;
 
-    foreach ($matches as $entry) {
-        if (!empty($entry['score'])) {
-            $winner = $entry['winner'] ?? null;
-            $challengerClass = ($winner === $entry['challenger']) ? "bg-success" : "bg-danger";
-            $opponentClass   = ($winner === $entry['opponent'])   ? "bg-success" : "bg-danger";
+foreach ($matches as $entry) {
+    if (!empty($entry['score'])) {
+        $winner = $entry['winner'] ?? null;
 
-            $sperreId = "spiel" . $resultIndex;
+        $challengerIsWinner = ($winner === $entry['challenger']);
 
-            echo "<tr>"
-                . "<td><span class='badge badge-eigen $challengerClass' data-bs-toggle='collapse' data-bs-target='#$sperreId' style='cursor: pointer;'>" . htmlspecialchars($entry['challenger']) . "</span> <span id='$sperreId' class='collapse'>darf am " . date("d.m.Y", strtotime($entry['timestamp'] . " +2 days")) . " wieder fordern.</span></td>"
-                . "<td><span class='badge badge-eigen $opponentClass' data-bs-toggle='collapse' data-bs-target='#$sperreId' style='cursor: pointer;'>" . htmlspecialchars($entry['opponent']) . "</span> <span id='$sperreId' class='collapse'>darf am " . date("d.m.Y", strtotime($entry['timestamp'] . " +5 days")) . " wieder fordern.</span></td>"
-                . "<td>" . htmlspecialchars($entry['score']) . "</td>"
-                . "</tr>";
+        $challengerClass = $challengerIsWinner ? "bg-success" : "bg-danger";
+        $opponentClass   = $challengerIsWinner ? "bg-danger" : "bg-success";
 
-            $resultIndex++;
-        }
+        $challengerDays = $challengerIsWinner ? 2 : 5;
+        $opponentDays   = $challengerIsWinner ? 5 : 2;
+
+        $challengerSperreId = "spiel" . $resultIndex . "a";
+        $opponentSperreId   = "spiel" . $resultIndex . "b";
+
+        $challengerDate = date(
+            "d.m.Y",
+            strtotime($entry['timestamp'] . " +" . $challengerDays . " days")
+        );
+
+        $opponentDate = date(
+            "d.m.Y",
+            strtotime($entry['timestamp'] . " +" . $opponentDays . " days")
+        );
+
+        echo "<tr>"
+            . "<td>"
+            . "<span class='badge badge-eigen $challengerClass' data-bs-toggle='collapse' data-bs-target='#$challengerSperreId' style='cursor: pointer;'>"
+            . htmlspecialchars($entry['challenger'])
+            . "</span> "
+            . "<span id='$challengerSperreId' class='collapse'>"
+            . "darf ab $challengerDate wieder selber fordern."
+            . "</span>"
+            . "</td>"
+
+            . "<td>"
+            . "<span class='badge badge-eigen $opponentClass' data-bs-toggle='collapse' data-bs-target='#$opponentSperreId' style='cursor: pointer;'>"
+            . htmlspecialchars($entry['opponent'])
+            . "</span> "
+            . "<span id='$opponentSperreId' class='collapse'>"
+            . "darf ab $opponentDate wieder selber fordern."
+            . "</span>"
+            . "</td>"
+
+            . "<td>" . htmlspecialchars($entry['score']) . "</td>"
+            . "</tr>";
+
+        $resultIndex++;
     }
-    ?>
+}
+?>
     </tbody>
 </table>
 </div>
 </div>
 
+<br>
 <div>
 <h3>Wichtigste Regeln</h3>
 <ul class="list-group">

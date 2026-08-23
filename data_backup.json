@@ -5,15 +5,11 @@
             "status": "aktiv"
         },
         {
-            "name": "Kuster Andreas",
-            "status": "aktiv"
-        },
-        {
-            "name": "Wernig Fynn",
-            "status": "aktiv"
-        },
-        {
             "name": "Wedenig Erich",
+            "status": "aktiv"
+        },
+        {
+            "name": "Hacker Anna",
             "status": "aktiv"
         },
         {
@@ -21,11 +17,11 @@
             "status": "aktiv"
         },
         {
-            "name": "Jenic Tobias",
+            "name": "Jagoutz Michael",
             "status": "aktiv"
         },
         {
-            "name": "Wernig Rene",
+            "name": "Jenic Tobias",
             "status": "aktiv"
         },
         {
@@ -41,40 +37,24 @@
             "status": "aktiv"
         },
         {
-            "name": "Kuchling Joe",
-            "status": "aktiv"
-        },
-        {
-            "name": "Stefan Christopher",
-            "status": "aktiv"
-        },
-        {
-            "name": "Karel Julian",
-            "status": "aktiv"
-        },
-        {
             "name": "Koraschnigg Jürgen",
             "status": "aktiv"
         },
         {
-            "name": "Krische Benedikt",
-            "status": "aktiv"
-        },
-        {
-            "name": "Puschl Harald",
-            "status": "freigestellt"
-        },
-        {
-            "name": "Schwarze Marc",
-            "status": "aktiv"
-        },
-        {
-            "name": "Trinkl Gerd",
+            "name": "Kuchling Joe",
             "status": "aktiv"
         },
         {
             "name": "Kuchling Thomas",
-            "status": "freigestellt"
+            "status": "aktiv"
+        },
+        {
+            "name": "Puschl Harald",
+            "status": "aktiv"
+        },
+        {
+            "name": "Schwarze Marc",
+            "status": "aktiv"
         },
         {
             "name": "Wernig Marc",
@@ -85,50 +65,65 @@
             "status": "aktiv"
         },
         {
-            "name": "Lechner Bernd",
-            "status": "aktiv"
-        },
-        {
-            "name": "Pruntsch Harald",
-            "status": "aktiv"
-        },
-        {
-            "name": "Kulterer Hannes",
-            "status": "aktiv"
-        },
-        {
             "name": "Opetnik Niko",
             "status": "aktiv"
         },
         {
             "name": "Schleschitz Aron",
-            "status": "überspringen"
+            "status": "aktiv"
         },
         {
-            "name": "Schleschitz Erik",
+            "name": "Newart Timo",
+            "status": "aktiv"
+        },
+        {
+            "name": "Mayer Marko",
+            "status": "aktiv"
+        },
+        {
+            "name": "Rigelnik Alexander",
             "status": "aktiv"
         }
     ],
     "matches": [
         {
-            "challenger": "Hobel Michael",
-            "opponent": "Jenic Tobias",
-            "score": "6:2 6:3",
-            "timestamp": "2026-08-23 10:58:13",
-            "winner": "Hobel Michael"
+            "challenger": "Koraschnigg Jürgen",
+            "opponent": "Kuchling Joe",
+            "score": "6:2 6:0",
+            "timestamp": "2026-08-23 22:41:33",
+            "winner": "Koraschnigg Jürgen"
         },
         {
-            "challenger": "Kuster Andreas",
-            "opponent": "Wernig Fynn",
-            "score": "6:1 6:2",
-            "timestamp": "2026-08-23 11:41:09",
-            "winner": "Kuster Andreas"
+            "challenger": "Kuchling Thomas",
+            "opponent": "Puschl Harald",
+            "score": "6:3 6:2",
+            "timestamp": "2026-08-23 22:41:42",
+            "winner": "Kuchling Thomas"
         },
         {
-            "challenger": "Hobel Michael",
+            "challenger": "Puschl Harald",
+            "opponent": "Till Georg",
+            "score": "2:6 3:6",
+            "timestamp": "2026-08-23 22:50:58",
+            "winner": "Till Georg"
+        },
+        {
+            "challenger": "Mayer Marko",
             "opponent": "Riepl Maximilian",
             "score": "",
-            "timestamp": "2026-08-23 11:41:00"
+            "timestamp": "2026-08-23 22:42:01"
+        },
+        {
+            "challenger": "Hacker Anna",
+            "opponent": "Wedenig Erich",
+            "score": "",
+            "timestamp": "2026-08-23 22:50:43"
+        },
+        {
+            "challenger": "Rigelnik Alexander",
+            "opponent": "Hobel Michael",
+            "score": "",
+            "timestamp": "2026-08-23 22:50:49"
         }
     ]
 }

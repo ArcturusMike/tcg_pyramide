@@ -3,11 +3,13 @@
     padding-bottom: 10px;
     width: 100%;
 }
+
 .pyramid {
     display: table;
     margin: 0 auto;
     white-space: nowrap;
 }
+
 /* Auf kleineren Bildschirmen Pyramide verkleinern */
 @media (max-width: 760px) {
     .pyramid {
@@ -16,10 +18,12 @@
         margin-top: -40px;
     }
 }
+
 .pyramid .row { 
     justify-content: center; 
     margin: 5px 0; 
 }
+
 .slot {
     position: relative;
     background: #e7f1ff;
@@ -39,6 +43,11 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.slot.highlight-challenge {
+    border: 4px solid darkblue !important;
+}
+
 .slot-number {
     position: absolute;
     top: 4px;
@@ -48,6 +57,7 @@
     color: #888e94;
     opacity: 0.5;
 }
+
 .status-muted {
     position: absolute;
     bottom: 4px;
@@ -59,6 +69,7 @@
     opacity: 0.8;
     font-weight: normal;
 }
+
 .list-group-item {
     white-space: nowrap;       /* kein Zeilenumbruch */
     overflow-x: auto;          /* horizontal scrollen erlauben */

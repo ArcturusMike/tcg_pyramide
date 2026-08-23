@@ -2,7 +2,7 @@
 
 Forderungspyramidensystem des TC Gösselsdorf
 
-## To Do:##
+## To Do:
 - [ ] Fordersperren können durch Klick auf Namen angezeigt werden
 - [x] Datum bei den offenen Forderungen hinzufügen mit "Letztmöglicher Spieltag"
 - [x] "Stand" sollte Freistellungen auch beachten
