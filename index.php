@@ -55,74 +55,9 @@ usort($matches, function($a, $b) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Forderungspyramide</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    .pyramid-container {
-        overflow-x: auto;
-        padding-bottom: 10px;
-        width: 100%;
-    }
-    .pyramid {
-        display: table;
-        margin: 0 auto;
-        white-space: nowrap;
-    }
-    /* Auf kleineren Bildschirmen Pyramide verkleinern */
-    @media (max-width: 760px) {
-        .pyramid {
-            transform: scale(0.8);
-            margin-left: -130px;
-            margin-top: -40px;
-        }
-    }
-    .pyramid .row { 
-        justify-content: center; 
-        margin: 5px 0; 
-    }
-    .slot {
-      position: relative;
-      background: #e7f1ff;
-      border: 1px solid #8aa9d6;
-      padding: 15px 25px;
-      margin: 0 8px;
-      border-radius: 6px;
-      min-width: 200px;
-      min-height: 56px;
-      text-align: center;
-      font-weight: bold;
-      box-shadow:
-        0 4px 6px rgba(0, 0, 0, 0.25),
-        4px 6px 10px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .slot-number {
-      position: absolute;
-      top: 4px;
-      left: 6px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: #adb5bd;
-      opacity: 0.5;
-    }
-    .status-muted {
-      position: absolute;
-      bottom: 4px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #6c757d;
-      opacity: 0.8;
-      font-weight: normal;
-    }
-    .list-group-item {
-  white-space: nowrap;       /* kein Zeilenumbruch */
-  overflow-x: auto;          /* horizontal scrollen erlauben */
-}
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-light">
 <div class="container py-4">
@@ -147,10 +82,10 @@ usort($matches, function($a, $b) {
 
             if ($status === "freigestellt") {
                 $bgColor = "#e0e0e0";
-                $textColor = "inherit";
-            } elseif ($status === "überspringen") {
-                $bgColor = "#e0e0e0";
                 $textColor = "grey";
+            /*} elseif ($status === "überspringen") {
+                $bgColor = "#e0e0e0";
+                $textColor = "grey";*/
             } else {
                 $bgColor = $playerColors[$slot_player] ?? "#e7f1ff";
                 $textColor = "#0d1b2a";
@@ -184,9 +119,11 @@ usort($matches, function($a, $b) {
 <?php
 foreach ($openMatches as $entry) {
     echo "<li class='list-group-item'>"
-        . "<span class='badge bg-warning text-dark me-2'>" . htmlspecialchars($entry['challenger']) . "</span>"
+        . "<span class='badge badge-eigen bg-warning text-dark me-2'>" . htmlspecialchars($entry['challenger']) . "</span>"
         . " fordert "
-        . "<span class='badge bg-warning text-dark ms-2'>" . htmlspecialchars($entry['opponent']) . "</span>"
+        . "<span class='badge badge-eigen bg-warning text-dark ms-2 me-2'>" . htmlspecialchars($entry['opponent']) . "</span>"
+        . " |&nbsp; zu spielen bis "
+        . date("d.m.Y", strtotime($entry['timestamp'] . " +7 days"))
         . "</li>";
 }
 ?>
@@ -195,6 +132,7 @@ foreach ($openMatches as $entry) {
 
 <div>
 <h3>Ergebnisse</h3>
+<p style="font-size: 9pt;">Ein Klick auf den Namen verrät, wie lange eine Forderpause eingelegt werden muss!</p>
 <div class="table-responsive">
 <table class="table table-striped table-bordered align-middle">
     <thead class="table-light">
@@ -206,17 +144,23 @@ foreach ($openMatches as $entry) {
     </thead>
     <tbody>
     <?php
+    $resultIndex = 0;
+
     foreach ($matches as $entry) {
         if (!empty($entry['score'])) {
             $winner = $entry['winner'] ?? null;
             $challengerClass = ($winner === $entry['challenger']) ? "bg-success" : "bg-danger";
             $opponentClass   = ($winner === $entry['opponent'])   ? "bg-success" : "bg-danger";
 
+            $sperreId = "spiel" . $resultIndex;
+
             echo "<tr>"
-                . "<td><span class='badge $challengerClass'>" . htmlspecialchars($entry['challenger']) . "</span></td>"
-                . "<td><span class='badge $opponentClass'>" . htmlspecialchars($entry['opponent']) . "</span></td>"
+                . "<td><span class='badge badge-eigen $challengerClass' data-bs-toggle='collapse' data-bs-target='#$sperreId' style='cursor: pointer;'>" . htmlspecialchars($entry['challenger']) . "</span> <span id='$sperreId' class='collapse'>darf am " . date("d.m.Y", strtotime($entry['timestamp'] . " +2 days")) . " wieder fordern.</span></td>"
+                . "<td><span class='badge badge-eigen $opponentClass' data-bs-toggle='collapse' data-bs-target='#$sperreId' style='cursor: pointer;'>" . htmlspecialchars($entry['opponent']) . "</span> <span id='$sperreId' class='collapse'>darf am " . date("d.m.Y", strtotime($entry['timestamp'] . " +5 days")) . " wieder fordern.</span></td>"
                 . "<td>" . htmlspecialchars($entry['score']) . "</td>"
                 . "</tr>";
+
+            $resultIndex++;
         }
     }
     ?>
@@ -226,14 +170,14 @@ foreach ($openMatches as $entry) {
 </div>
 
 <div>
-<h3>Regelauszug</h3>
+<h3>Wichtigste Regeln</h3>
 <ul class="list-group">
-    <li class="list-group-item">Gefordert werden darf jeder, der in der Pyramide <b>3 Plätze vor einem</b> oder <b>eine Reihe darüber rechts oben vor einem</b> steht.<br>Freigestellte Spieler werden dabei mitgezählt, "überspringbare" Spieler nicht. Ein Spieler ist nur "überspringbar", wenn er für eine längere Zeit ausfällt.</li>
+    <li class="list-group-item">Gefordert werden darf jeder, der in der Pyramide <b>3 Felder vor einem</b> oder <b>eine Reihe darüber rechts oben vor einem</b> steht.<br><b>Freigestellte Spieler können dabei in der Zählung ausgelassen werden</b></li>
     <li class="list-group-item">Die Zeit zwischen Forderung und Spiel darf <b>nicht mehr als 7 Tage</b> betragen.<br>Die Spiele <b>müssen auf Platz 4</b> gespielt und reserviert werden, damit die Zuschauer informiert sind. <b>Spiele auf anderen Plätzen werden nicht gewertet!</b></li>
     <li class="list-group-item">Gespielt wird auf <b>2 Gewinnsätze</b>. Dritter Satz ausschließlich <b>Champions-Tie-Break</b>.</li>
-    <li class="list-group-item">Der <b>Gewinner</b> darf sofort selber weiterfordern, aber erst nach 3 Tagen wieder gefordert werden.</li>
-    <li class="list-group-item">Der <b>Verlierer</b> darf erst nach Ablauf von 7 Tagen wieder fordern, aber darf sofort gefordert werden.</li>
-    <li class="list-group-item">Gewinnt der Herausforderer, so rückt er <b>auf den Platz des Verlierers</b>. Der Geforderte <b>fällt um einen Platz zurück</b>, alle dazwischen liegenden Spieler <b>ebenfalls</b>.</li>
+    <li class="list-group-item">Der <b>Gewinner darf erst am übernächsten Tag erneut selber fordern</b>, aber sofort von einem anderen Spieler gefordert werden.</li>
+    <li class="list-group-item">Der <b>Verlierer darf erst am 5. Tag nach der Niederlage erneut selber fordern</b>, aber sofort von einem anderen Spieler gefordert werden.</li>
+    <li class="list-group-item">Gewinnt der Herausforderer, so rückt er <b>auf den Platz des Verlierers</b>. Der Geforderte <b>fällt um einen Platz zurück</b>, alle dazwischen liegenden Spieler ebenfalls.</li>
 </ul>
 </div>
 

@@ -81,7 +81,6 @@ sort($availablePlayersSorted, SORT_STRING | SORT_FLAG_CASE);
             <select class="form-select" name="new_status" required>
                 <option value="aktiv">aktiv</option>
                 <option value="freigestellt">freigestellt</option>
-                <option value="überspringen">überspringen</option>
             </select>
         </div>
         <button type="submit" class="btn btn-warning w-100">Status ändern</button>

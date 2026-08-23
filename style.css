@@ -1,0 +1,69 @@
+.pyramid-container {
+    overflow-x: auto;
+    padding-bottom: 10px;
+    width: 100%;
+}
+.pyramid {
+    display: table;
+    margin: 0 auto;
+    white-space: nowrap;
+}
+/* Auf kleineren Bildschirmen Pyramide verkleinern */
+@media (max-width: 760px) {
+    .pyramid {
+        transform: scale(0.8);
+        margin-left: -130px;
+        margin-top: -40px;
+    }
+}
+.pyramid .row { 
+    justify-content: center; 
+    margin: 5px 0; 
+}
+.slot {
+    position: relative;
+    background: #e7f1ff;
+    border: 1px solid #8aa9d6;
+    padding: 15px 25px;
+    margin: 0 8px;
+    border-radius: 6px;
+    min-width: 200px;
+    min-height: 56px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.25),
+        4px 6px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.slot-number {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #888e94;
+    opacity: 0.5;
+}
+.status-muted {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6c757d;
+    opacity: 0.8;
+    font-weight: normal;
+}
+.list-group-item {
+    white-space: nowrap;       /* kein Zeilenumbruch */
+    overflow-x: auto;          /* horizontal scrollen erlauben */
+}
+
+.badge-eigen {
+    font-size: 11pt;
+}
