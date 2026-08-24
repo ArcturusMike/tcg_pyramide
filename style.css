@@ -48,6 +48,10 @@
     border: 4px solid darkblue !important;
 }
 
+.slot.highlight-herausforderer {
+    border: 2px dashed darkblue !important;
+}
+
 .slot-number {
     position: absolute;
     top: 4px;

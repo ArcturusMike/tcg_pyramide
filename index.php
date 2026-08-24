@@ -69,30 +69,33 @@ usort($matches, function($a, $b) {
 </div>
 
 <div class="pyramid-container">
-    <div class="pyramid mb-5 pt-3">
+    <div class="pyramid mb-5">
     <?php
     $player_index = 0;
     $slot_number = 1;
+
     foreach ($rows as $row_slots) {
         echo "<div class='d-flex justify-content-center mb-2'>";
+
         for ($i = 0; $i < $row_slots; $i++) {
             $slot = $players[$player_index] ?? null;
             $slot_player = $slot['name'] ?? "–";
-            $status = $slot['status'] ?? "aktiv"; // neu: status-Feld
+            $status = $slot['status'] ?? "aktiv";
 
             if ($status === "freigestellt") {
                 $bgColor = "#e0e0e0";
                 $textColor = "grey";
-            /*} elseif ($status === "überspringen") {
-                $bgColor = "#e0e0e0";
-                $textColor = "grey";*/
             } else {
                 $bgColor = $playerColors[$slot_player] ?? "#e7f1ff";
                 $textColor = "#0d1b2a";
             }
 
-
-            echo "<div class='slot' style='background-color: $bgColor; color:  $textColor'>
+            echo "<div 
+                    class='slot' 
+                    data-slot-number='$slot_number'
+                    data-status='" . htmlspecialchars($status) . "'
+                    style='background-color: $bgColor; color: $textColor; cursor: pointer;'
+                  >
                     <span class='slot-number'>$slot_number</span>"
                     . htmlspecialchars($slot_player);
 
@@ -101,16 +104,117 @@ usort($matches, function($a, $b) {
             } elseif ($status === "überspringen") {
                 echo "<div class='status-muted'>überspringen</div>";
             }
+
             echo "</div>";
 
             $player_index++;
             $slot_number++;
         }
+
         echo "</div>";
     }
     ?>
     </div>
 </div>
+
+<script>
+document.querySelectorAll('.slot').forEach(function(slot) {
+
+    slot.addEventListener('click', function() {
+        
+        // Alle bisherigen Hervorhebungen entfernen
+        document.querySelectorAll('.slot.highlight-challenge').forEach(function(s) {
+            s.classList.remove('highlight-challenge');
+        });
+        document.querySelectorAll('.slot.highlight-herausforderer').forEach(function(s) {
+            s.classList.remove('highlight-herausforderer');
+        });
+
+        // Freigestellte Spieler können nicht ausgewählt werden
+        if (this.dataset.status === 'freigestellt') {
+            return;
+        }
+        
+        // Ausgewählten Slot hervorheben
+        this.classList.add('highlight-herausforderer');
+
+        const clickedNumber = parseInt(this.dataset.slotNumber);
+
+        const slots = Array.from(document.querySelectorAll('.slot'));
+
+        // Nur aktive Spieler berücksichtigen
+        const activeSlots = slots.filter(function(s) {
+            return s.dataset.status !== 'freigestellt';
+        });
+
+        // Position des angeklickten Spielers innerhalb der aktiven Spieler
+        const activeIndex = activeSlots.findIndex(function(s) {
+            return parseInt(s.dataset.slotNumber) === clickedNumber;
+        });
+
+        if (activeIndex === -1) {
+            return;
+        }
+
+        // Die 3 vorherigen aktiven Spieler markieren
+        for (let i = 1; i <= 3; i++) {
+            const previousSlot = activeSlots[activeIndex - i];
+
+            if (previousSlot) {
+                previousSlot.classList.add('highlight-challenge');
+            }
+        }
+
+        // ------------------------------------------------
+        // Slot rechts oben markieren – hardcodierte Zuordnung
+        // ------------------------------------------------
+
+        // Hier festlegen:
+        // "angeklickter Slot": "Slot rechts oben"
+        const rechtsObenZuordnung = {
+            // davor ist das nicht relevant
+            11: 7,
+            12: 8,
+            13: 9,
+            14: 10,
+            // 15 hat keinen rechts oben
+            16: 11,
+            17: 12,
+            18: 13,
+            19: 14,
+            20: 15,
+            // 21 hat keinen rechts oben
+            22: 16,
+            23: 17,
+            24: 18,
+            25: 19, 
+            26: 20, 
+            27: 21
+        };
+
+        // Ziel-Slot für den angeklickten Slot ermitteln
+        const aboveNumber = rechtsObenZuordnung[clickedNumber];
+
+        if (aboveNumber) {
+
+            const aboveSlot = document.querySelector(
+                '.slot[data-slot-number="' + aboveNumber + '"]'
+            );
+
+            // Freigestellte Spieler werden nicht markiert
+            if (
+                aboveSlot &&
+                aboveSlot.dataset.status !== 'freigestellt'
+            ) {
+                aboveSlot.classList.add('highlight-challenge');
+            }
+        }
+    });
+});
+</script>
+
+
+
 
 <div class="container">
 <div class="mb-4">

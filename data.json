@@ -42,7 +42,7 @@
         },
         {
             "name": "Kuchling Thomas",
-            "status": "aktiv"
+            "status": "freigestellt"
         },
         {
             "name": "Wedenig Erich",
@@ -86,6 +86,23 @@
         }
     ],
     "matches": [
-
+        {
+            "challenger": "Jenic Tobias",
+            "opponent": "Hobel Michael",
+            "score": "",
+            "timestamp": "2026-08-24 14:50:19"
+        },
+        {
+            "challenger": "Till Georg",
+            "opponent": "Puschl Harald",
+            "score": "",
+            "timestamp": "2026-08-24 14:50:32"
+        },
+        {
+            "challenger": "Kuchling Joe",
+            "opponent": "Riepl Jan",
+            "score": "",
+            "timestamp": "2026-08-24 14:50:43"
+        }
     ]
 }
