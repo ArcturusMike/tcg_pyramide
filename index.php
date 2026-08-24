@@ -121,20 +121,30 @@ usort($matches, function($a, $b) {
 document.querySelectorAll('.slot').forEach(function(slot) {
 
     slot.addEventListener('click', function() {
-        
+
+        // Prüfen, ob dieser Slot bereits ausgewählt ist
+        const alreadySelected = this.classList.contains('highlight-herausforderer');
+
         // Alle bisherigen Hervorhebungen entfernen
         document.querySelectorAll('.slot.highlight-challenge').forEach(function(s) {
             s.classList.remove('highlight-challenge');
         });
+
         document.querySelectorAll('.slot.highlight-herausforderer').forEach(function(s) {
             s.classList.remove('highlight-herausforderer');
         });
+
+        // Wenn der bereits ausgewählte Slot erneut geklickt wurde:
+        // Hervorhebungen sind bereits entfernt -> nichts weiter tun
+        if (alreadySelected) {
+            return;
+        }
 
         // Freigestellte Spieler können nicht ausgewählt werden
         if (this.dataset.status === 'freigestellt') {
             return;
         }
-        
+
         // Ausgewählten Slot hervorheben
         this.classList.add('highlight-herausforderer');
 
@@ -142,7 +152,7 @@ document.querySelectorAll('.slot').forEach(function(slot) {
 
         const slots = Array.from(document.querySelectorAll('.slot'));
 
-        // Nur aktive Spieler berücksichtigen
+        // Nur aktive Slots berücksichtigen
         const activeSlots = slots.filter(function(s) {
             return s.dataset.status !== 'freigestellt';
         });
@@ -169,10 +179,7 @@ document.querySelectorAll('.slot').forEach(function(slot) {
         // Slot rechts oben markieren – hardcodierte Zuordnung
         // ------------------------------------------------
 
-        // Hier festlegen:
-        // "angeklickter Slot": "Slot rechts oben"
         const rechtsObenZuordnung = {
-            // davor ist das nicht relevant
             11: 7,
             12: 8,
             13: 9,
@@ -187,12 +194,11 @@ document.querySelectorAll('.slot').forEach(function(slot) {
             22: 16,
             23: 17,
             24: 18,
-            25: 19, 
-            26: 20, 
+            25: 19,
+            26: 20,
             27: 21
         };
 
-        // Ziel-Slot für den angeklickten Slot ermitteln
         const aboveNumber = rechtsObenZuordnung[clickedNumber];
 
         if (aboveNumber) {
