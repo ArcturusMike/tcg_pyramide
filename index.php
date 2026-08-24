@@ -122,8 +122,8 @@ document.querySelectorAll('.slot').forEach(function(slot) {
 
     slot.addEventListener('click', function() {
 
-        // Prüfen, ob dieser Slot bereits ausgewählt ist
-        const alreadySelected = this.classList.contains('highlight-herausforderer');
+        // Prüfen, ob dieser Slot bereits ausgewählt ist oder ob dieser Spieler bereits Teil einer Forderung ist
+        const alreadySelected = (this.classList.contains('highlight-herausforderer') || this.style.backgroundColor != "rgb(231, 241, 255)");
 
         // Alle bisherigen Hervorhebungen entfernen
         document.querySelectorAll('.slot.highlight-challenge').forEach(function(s) {
@@ -170,7 +170,7 @@ document.querySelectorAll('.slot').forEach(function(slot) {
         for (let i = 1; i <= 3; i++) {
             const previousSlot = activeSlots[activeIndex - i];
 
-            if (previousSlot) {
+            if (previousSlot && previousSlot.style.backgroundColor == "rgb(231, 241, 255)") {
                 previousSlot.classList.add('highlight-challenge');
             }
         }
@@ -210,7 +210,8 @@ document.querySelectorAll('.slot').forEach(function(slot) {
             // Freigestellte Spieler werden nicht markiert
             if (
                 aboveSlot &&
-                aboveSlot.dataset.status !== 'freigestellt'
+                aboveSlot.dataset.status !== 'freigestellt' &&
+                aboveSlot.style.backgroundColor == "rgb(231, 241, 255)"
             ) {
                 aboveSlot.classList.add('highlight-challenge');
             }
