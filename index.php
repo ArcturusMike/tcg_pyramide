@@ -68,7 +68,7 @@ usort($matches, function($a, $b) {
 <?php endif; ?>
 </div>
 
-<div class="pyramid-container">
+<div class="pyramid-container pt-3">
     <div class="pyramid mb-5">
     <?php
     $player_index = 0;
