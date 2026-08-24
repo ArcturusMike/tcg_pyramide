@@ -69,7 +69,7 @@ usort($matches, function($a, $b) {
 </div>
 
 <div class="pyramid-container">
-    <div class="pyramid mb-5">
+    <div class="pyramid mb-5 pt-3">
     <?php
     $player_index = 0;
     $slot_number = 1;
